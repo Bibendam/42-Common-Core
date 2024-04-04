@@ -1,27 +1,23 @@
 NAME = pipex
-
 CC = gcc
-
-CFLAGS = -Wall -Werror -Wextra
-
+CFLAGS = -Wall -Werror -Wextra -I../Libft
+LDFLAGS = -L../Libft -lft
 SRCS = pipex.c errors.c child.c free.c
-
 OBJS = ${SRCS:.c=.o}
 
-${NAME}:
-		make all -C libft
-		gcc $(CFLAGS) $(SRCS) -o $(NAME)
+${NAME}: ${OBJS} ../Libft/libft.a
+	${CC} ${OBJS} ${LDFLAGS} -o ${NAME}
 
-all:	${NAME}
+../Libft/libft.a:
+	make -C ../Libft
 
-bonus: all
+all: ${NAME}
 
 clean:
-		rm -f ${OBJS}
-		make clean -C libft
+	rm -f ${OBJS}
+	make -C ../Libft clean
 
-fclean: clean;
-		rm -f ${NAME}
-		make fclean -C libft
+fclean: clean
+	rm -f ${NAME}
 
-re:	fclean all
+re: fclean all
