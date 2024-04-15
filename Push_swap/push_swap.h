@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:04:06 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/09 15:33:36 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/04/15 15:39:16 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void				sort(t_list **stack_a, t_list **stack_b);
 void				radix_algo(t_list **stack_a, t_list **stack_b);
 
 int					get_dist(t_list **stack, int index);
-int					is_sorted(t_list **stack);
+int					is_sorted(t_list *stack);
 void				ft_error(char *msg);
 void				ft_free(char **str);
 void				free_stack(t_list **stack);
