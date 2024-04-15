@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:07:23 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/09 14:53:04 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/04/15 15:16:47 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	push(t_list **stack_a, t_list **stack_b)
 	head_b = *stack_b;
 	tmp = head_b;
 	head_b = head_b->next;
-	*stack_a = head_b;
+	*stack_b = head_b;
 	if (!head_a)
 	{
 		head_a = tmp;

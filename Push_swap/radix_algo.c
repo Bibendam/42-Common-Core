@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:46:04 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/12 14:18:46 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/04/15 15:37:38 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static int	get_max_bits(t_list **stack)
 	}
 	while ((max >> max_bits) != 0)
 		max_bits++;
-	// head = head->next;
 	return (max_bits);
 }
 
