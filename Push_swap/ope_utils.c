@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:07:23 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/15 15:16:47 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/04/18 11:57:50 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	push(t_list **stack_a, t_list **stack_b)
 	t_list	*head_b;
 	t_list	*tmp;
 
-	if (ft_lstsize(*stack_b) == 0)
+	if (*stack_b == NULL)
 		return (-1);
 	head_a = *stack_a;
 	head_b = *stack_b;
@@ -76,10 +76,10 @@ int	rotate(t_list **stack)
 	return (0);
 }
 
-int	reverse_rotate(t_list **stack)
+int reverse_rotate(t_list **stack)
 {
-	t_list	*head;
-	t_list	*tail;
+	t_list *head;
+	t_list *tail;
 
 	if (ft_lstsize(*stack) < 2)
 		return (-1);
@@ -90,8 +90,9 @@ int	reverse_rotate(t_list **stack)
 		if (head->next->next == NULL)
 		{
 			head->next = NULL;
-			break ;
+			break;
 		}
+		head = head->next;
 	}
 	tail->next = *stack;
 	*stack = tail;
