@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:07:23 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/18 11:57:50 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/04/19 11:51:06 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ int	rotate(t_list **stack)
 	return (0);
 }
 
-int reverse_rotate(t_list **stack)
+int	reverse_rotate(t_list **stack)
 {
-	t_list *head;
-	t_list *tail;
+	t_list	*head;
+	t_list	*tail;
 
 	if (ft_lstsize(*stack) < 2)
 		return (-1);
@@ -90,7 +90,7 @@ int reverse_rotate(t_list **stack)
 		if (head->next->next == NULL)
 		{
 			head->next = NULL;
-			break;
+			break ;
 		}
 		head = head->next;
 	}

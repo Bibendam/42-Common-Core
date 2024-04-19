@@ -6,12 +6,11 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:59:07 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/18 11:42:07 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/04/19 11:51:16 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 static void	init_stack(t_list **stack, int argc, char **argv)
 {
