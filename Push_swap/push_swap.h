@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:04:06 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/19 12:05:10 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/04/22 14:26:57 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 # include "../Libft/libft.h"
+# include <stdio.h>
 
 typedef struct s_list
 {
@@ -43,7 +44,7 @@ void				sort_5(t_list **stack_a, t_list **stack_b);
 void				sort(t_list **stack_a, t_list **stack_b);
 
 void				radix_algo(t_list **stack_a, t_list **stack_b);
-void				quicksort(t_list **stack_a, int low, int high);
+void				quicksort(t_list **stack_a, int l, int h);
 
 int					get_dist(t_list **stack, int index);
 int					is_sorted(t_list *stack);
