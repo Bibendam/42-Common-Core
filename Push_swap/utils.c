@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:00:53 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/15 15:37:30 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/04/19 12:31:27 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_error(char *msg)
 {
-	ft_putendl_fd(msg, 1);
-	exit(0);
+	ft_putendl_fd(msg, 2);
+	exit(1);
 }
 
 void	ft_free(char **str)

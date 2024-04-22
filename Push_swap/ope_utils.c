@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:07:23 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/19 11:51:06 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/04/19 15:51:06 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,87 +14,63 @@
 
 int	swap(t_list **stack)
 {
-	t_list	*head;
-	t_list	*next;
-	int		tmp_value;
-	int		tmp_index;
+	t_list	*temp;
 
-	if (ft_lstsize(*stack) < 2)
+	if (!*stack || !(*stack)->next)
 		return (-1);
-	head = *stack;
-	next = head->next;
-	if (!head && !next)
-		ft_error("Error: swap failed\n");
-	tmp_value = head->value;
-	tmp_index = head->index;
-	head->value = next->value;
-	head->index = next->index;
-	next->value = tmp_value;
-	next->index = tmp_index;
+	temp = (*stack)->next;
+	(*stack)->next = temp->next;
+	temp->next = *stack;
+	*stack = temp;
 	return (0);
 }
 
 int	push(t_list **stack_a, t_list **stack_b)
 {
-	t_list	*head_a;
-	t_list	*head_b;
-	t_list	*tmp;
+	t_list	*temp;
 
-	if (*stack_b == NULL)
+	if (!*stack_b)
 		return (-1);
-	head_a = *stack_a;
-	head_b = *stack_b;
-	tmp = head_b;
-	head_b = head_b->next;
-	*stack_b = head_b;
-	if (!head_a)
-	{
-		head_a = tmp;
-		head_a->next = NULL;
-		*stack_a = head_a;
-	}
-	else
-	{
-		tmp->next = head_a;
-		*stack_a = tmp;
-	}
+	temp = *stack_b;
+	*stack_b = (*stack_b)->next;
+	temp->next = *stack_a;
+	*stack_a = temp;
 	return (0);
 }
 
 int	rotate(t_list **stack)
 {
-	t_list	*head;
-	t_list	*tail;
+	t_list	*first;
+	t_list	*last;
 
-	if (ft_lstsize(*stack) < 2)
+	if (!*stack || !(*stack)->next)
 		return (-1);
-	head = *stack;
-	tail = ft_lstlast(head);
-	*stack = head->next;
-	head->next = NULL;
-	tail->next = head;
+	first = *stack;
+	*stack = (*stack)->next;
+	first->next = NULL;
+	last = *stack;
+	while (last->next)
+		last = last->next;
+	last->next = first;
 	return (0);
 }
 
 int	reverse_rotate(t_list **stack)
 {
-	t_list	*head;
-	t_list	*tail;
+	t_list	*last;
+	t_list	*second_to_last;
 
-	if (ft_lstsize(*stack) < 2)
+	if (!*stack || !(*stack)->next)
 		return (-1);
-	head = *stack;
-	tail = ft_lstlast(head);
-	while (head)
+	last = *stack;
+	second_to_last = NULL;
+	while (last->next)
 	{
-		if (head->next->next == NULL)
-		{
-			head->next = NULL;
-			break ;
-		}
-		head = head->next;
+		second_to_last = last;
+		last = last->next;
 	}
-	tail->next = *stack;
-	*stack = tail;
+	second_to_last->next = NULL;
+	last->next = *stack;
+	*stack = last;
 	return (0);
 }

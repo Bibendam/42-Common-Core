@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 12:31:31 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/19 11:54:56 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/04/22 14:28:20 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,31 @@ static int	partition(t_list **stack_a, int low, int high)
 	return (i + 1);
 }
 
-void	quicksort(t_list **stack_a, int low, int high)
+void	quicksort(t_list **stack_a, int l, int h)
 {
-	int	pi;
+	int	*stack;
+	int	top;
+	int	p;
 
-	if (low < high)
+	stack = malloc((h - l + 1) * sizeof(int));
+	top = -1;
+	stack[++top] = l;
+	stack[++top] = h;
+	while (top >= 0)
 	{
-		pi = partition(stack_a, low, high);
-		quicksort(stack_a, low, pi - 1);
-		quicksort(stack_a, pi + 1, high);
+		h = stack[top--];
+		l = stack[top--];
+		p = partition(stack_a, l, h);
+		if (p - 1 > l)
+		{
+			stack[++top] = l;
+			stack[++top] = p - 1;
+		}
+		if (p + 1 < h)
+		{
+			stack[++top] = p + 1;
+			stack[++top] = h;
+		}
 	}
+	free(stack);
 }
