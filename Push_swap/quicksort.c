@@ -5,86 +5,63 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 12:31:31 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/22 14:28:20 by drizzo           ###   ########.fr       */
+/*   Created: 2024/04/08 16:27:21 by drizzo            #+#    #+#             */
+/*   Updated: 2024/05/02 15:53:09 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	swapping(t_list *a, t_list *b)
+Stack	*newStack(void)
 {
-	t_list	t;
+	Stack	*stack;
 
-	t = *a;
-	*a = *b;
-	*b = t;
+	stack = (Stack *)malloc(sizeof(Stack));
+	stack->top = NULL;
+	return (stack);
 }
 
-static int	median_of_three(t_list **stack_a, int low, int high)
+static int	partition(Stack *stack, Stack *helper, int low, int high)
 {
-	int	mid;
+	int		pivot;
+	Node	*node;
+	int		i;
 
-	mid = low + (high - low) / 2;
-	if ((*stack_a)[low].value > (*stack_a)[mid].value)
-		swapping(&(*stack_a)[low], &(*stack_a)[mid]);
-	if ((*stack_a)[low].value > (*stack_a)[high].value)
-		swapping(&(*stack_a)[low], &(*stack_a)[high]);
-	if ((*stack_a)[mid].value > (*stack_a)[high].value)
-		swapping(&(*stack_a)[mid], &(*stack_a)[high]);
-	return (mid);
-}
-
-static int	partition(t_list **stack_a, int low, int high)
-{
-	int	pivot_index;
-	int	pivot;
-	int	i;
-	int	j;
-
-	pivot_index = median_of_three(stack_a, low, high);
-	swapping(&(*stack_a)[pivot_index], &(*stack_a)[high]);
-	pivot = (*stack_a)[high].value;
-	i = low - 1;
-	j = low;
-	while (j <= high - 1)
+	pivot = stack->top->value;
+	node = stack->top->next;
+	i = low;
+	for (int j = low; j <= high; j++)
 	{
-		if ((*stack_a)[j].value < pivot)
+		if (!node)
+		{
+			break ;
+		}
+		if (node->value < pivot)
 		{
 			i++;
-			swapping(&(*stack_a)[i], &(*stack_a)[j]);
+			push(helper, pop(stack));
 		}
-		j++;
+		else
+		{
+			push(stack, pop(stack));
+		}
+		node = node->next;
 	}
-	swapping(&(*stack_a)[i + 1], &(*stack_a)[high]);
-	return (i + 1);
+	while (helper->top)
+	{
+		push(stack, pop(helper));
+	}
+	return (i);
 }
 
-void	quicksort(t_list **stack_a, int l, int h)
+void	quicksort(Stack *stack, Stack *helper, int low, int high)
 {
-	int	*stack;
-	int	top;
-	int	p;
+	int	pi;
 
-	stack = malloc((h - l + 1) * sizeof(int));
-	top = -1;
-	stack[++top] = l;
-	stack[++top] = h;
-	while (top >= 0)
+	if (low < high)
 	{
-		h = stack[top--];
-		l = stack[top--];
-		p = partition(stack_a, l, h);
-		if (p - 1 > l)
-		{
-			stack[++top] = l;
-			stack[++top] = p - 1;
-		}
-		if (p + 1 < h)
-		{
-			stack[++top] = p + 1;
-			stack[++top] = h;
-		}
+		pi = partition(stack, helper, low, high);
+		quicksort(stack, helper, low, pi - 1);
+		quicksort(stack, helper, pi + 1, high);
 	}
-	free(stack);
 }

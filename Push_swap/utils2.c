@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:27:41 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/19 12:38:50 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/02 13:31:33 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,53 +56,15 @@ void	ft_check_args(int argc, char **argv)
 	}
 	while (args[i])
 	{
-		tmp = ft_atoi(args[i]);
 		if (!ft_isnum(args[i]))
 			ft_error("Error\n");
-		if (ft_contains(tmp, args, i))
+		tmp = ft_atoi(args[i]);
+		if (tmp == LONG_MAX || tmp == LONG_MIN)
 			ft_error("Error\n");
-		if (tmp > 2147483647 || tmp < -2147483648)
+		if (ft_contains(tmp, args, i))
 			ft_error("Error\n");
 		i++;
 	}
 	if (argc == 2)
 		ft_free(args);
-}
-
-static t_list	*get_next_min(t_list **stack)
-{
-	t_list	*head;
-	t_list	*min;
-	int		has_min;
-
-	head = *stack;
-	min = NULL;
-	has_min = 0;
-	if (head)
-	{
-		while (head)
-		{
-			if ((head->index == -1) && (!has_min || head->value < min->value))
-			{
-				min = head;
-				has_min = 1;
-			}
-			head = head->next;
-		}
-	}
-	return (min);
-}
-
-void	index_stack(t_list **stack)
-{
-	t_list	*head;
-	int		index;
-
-	head = get_next_min(stack);
-	index = 0;
-	while (head)
-	{
-		head->index = index++;
-		head = get_next_min(stack);
-	}
 }

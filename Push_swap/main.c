@@ -6,18 +6,18 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:59:07 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/22 14:23:59 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/02 15:51:52 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
-static void	init_stack(t_list **stack, int argc, char **argv)
+static void	init_stack(Stack **stack, int argc, char **argv)
 {
 	int		i;
-	t_list	*new;
+	Node	*new;
 	char	**args;
+	int		num;
 
 	i = 0;
 	if (argc == 2)
@@ -29,45 +29,80 @@ static void	init_stack(t_list **stack, int argc, char **argv)
 	}
 	while (args[i])
 	{
-		new = ft_lstnew(ft_atoi(args[i]));
-		ft_lstadd_back(stack, new);
+		num = ft_atoi(args[i]);
+		if (num == 0 && args[i][0] != '0')
+			ft_error("Error\n");
+		new = newNode(num);
+		push(*stack, new);
 		i++;
 	}
-	index_stack(stack);
+	index_stack(&((*stack)->top));
 	if (argc == 2)
 		ft_free(args);
 }
 
-static void	sort_stack(t_list **stack_a, t_list **stack_b)
+int	stack_size(Stack *stack)
 {
-	if (ft_lstsize(*stack_a) <= 5)
-		sort(stack_a, stack_b);
-	else
-		radix_algo(stack_a, stack_b);
+	int		size;
+	Node	*node;
+
+	size = 0;
+	node = stack->top;
+	while (node != NULL)
+	{
+		size++;
+		node = node->prev;
+	}
+	return (size);
+}
+
+void	sort_stack(Stack **stack_a, Stack **stack_b)
+{
+	Stack	*temp_stack_b;
+
+	temp_stack_b = NULL;
+	if (!(*stack_b))
+	{
+		temp_stack_b = create_empty_stack();
+		*stack_b = temp_stack_b;
+	}
+	quicksort(*stack_a, *stack_b, 0, stack_size(*stack_a) - 1);
+	if (temp_stack_b)
+	{
+		free_stack(&temp_stack_b->top);
+		free(temp_stack_b);
+	}
+}
+
+void	print_stack(Node *top)
+{
+	Node	*node;
+
+	node = top;
+	while (node != NULL)
+	{
+		printf("%d ", node->value);
+		node = node->prev;
+	}
+	printf("\n");
 }
 
 int	main(int argc, char **argv)
 {
-	t_list	*stack_a;
-	t_list	*stack_b;
-	t_list	*current;
+	Stack	*stack_a;
 
-	stack_a = NULL;
-	stack_b = NULL;
+	stack_a = newStack();
 	if (argc < 2)
 		return (-1);
 	ft_check_args(argc, argv);
-	stack_a = NULL;
 	init_stack(&stack_a, argc, argv);
-	if (is_sorted(stack_a))
+	if (!is_sorted(stack_a->top))
 	{
-		free_stack(&stack_a);
-		return (0);
+		sort_stack(&stack_a, NULL);
 	}
-	sort_stack(&stack_a, &stack_b);
-	current = stack_a;
-	while (current != NULL)
-		current = current->next;
-	free_stack(&stack_a);
+	printf("Sorted stack: \n");
+	print_stack(stack_a->top);
+	free_stack(&stack_a->top);
+	free(stack_a);
 	return (0);
 }

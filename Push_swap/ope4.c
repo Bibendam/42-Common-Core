@@ -6,34 +6,27 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:07:58 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/22 14:21:27 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/02 13:13:34 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	rra(t_list **stack_a)
+void	rra(Node **a)
 {
-	if (reverse_rotate(stack_a) == -1)
-		return (-1);
-	ft_putendl_fd("rra", 1);
-	return (0);
+	reverse_rotate(a);
+	ft_putendl_fd("rra\n", 1);
 }
 
-int	rrb(t_list **stack_b)
+void	rrb(Node **b)
 {
-	if (reverse_rotate(stack_b) == -1)
-		return (-1);
-	ft_putendl_fd("rrb", 1);
-	return (0);
+	reverse_rotate(b);
+	ft_putendl_fd("rrb\n", 1);
 }
 
-int	rrr(t_list **stack_a, t_list **stack_b)
+void	rrr(Node **a, Node **b)
 {
-	if ((ft_lstsize(*stack_a) < 2) || (ft_lstsize(*stack_b) < 2))
-		return (-1);
-	reverse_rotate(stack_a);
-	reverse_rotate(stack_b);
-	ft_putendl_fd("rrr", 1);
-	return (0);
+	reverse_rotate(a);
+	reverse_rotate(b);
+	ft_putendl_fd("rrr\n", 1);
 }

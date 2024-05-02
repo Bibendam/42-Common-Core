@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:00:53 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/19 12:31:27 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/02 15:51:59 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	ft_free(char **str)
 		free(str[i--]);
 }
 
-int	is_sorted(t_list *stack)
+int	is_sorted(Node *stack)
 {
-	t_list	*head;
+	Node	*head;
 
 	head = stack;
 	while (head && head->next)
@@ -43,38 +43,15 @@ int	is_sorted(t_list *stack)
 	return (1);
 }
 
-int	get_dist(t_list **stack, int index)
+void free_stack(Node **top)
 {
-	t_list	*head;
-	int		dist;
+	Node *temp;
 
-	head = *stack;
-	dist = 0;
-	while (head)
+	while (*top)
 	{
-		if (head->index == index)
-			break ;
-		dist++;
-		head = head->next;
+		temp = *top;
+		*top = (*top)->prev;
+		free(temp);
+		temp = NULL;
 	}
-	return (dist);
-}
-
-void	free_stack(t_list **stack)
-{
-	t_list	*head;
-	t_list	*tmp;
-
-	head = *stack;
-	while (head)
-	{
-		tmp = head;
-		head = head->next;
-		if (tmp != NULL)
-		{
-			free(tmp);
-			tmp = NULL;
-		}
-	}
-	*stack = NULL;
 }

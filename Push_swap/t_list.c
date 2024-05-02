@@ -6,60 +6,55 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 14:36:57 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/09 15:38:40 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/02 15:52:02 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_lstsize(t_list *head)
+Node	*newNode(int value)
 {
-	size_t	i;
-	t_list	*tmp;
+	Node	*node;
 
-	tmp = head;
-	i = 0;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
+	node = malloc(sizeof(Node));
+	node->value = value;
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
 }
 
-t_list	*ft_lstnew(int value)
+Node	*addNode(Node *head, int value)
 {
-	t_list	*new;
+	Node	*node;
 
-	new = (t_list *)malloc(sizeof(*new));
-	if (!new)
-		return (NULL);
-	new->value = value;
-	new->index = -1;
-	new->next = NULL;
-	return (new);
+	node = newNode(value);
+	node->next = head;
+	return (node);
 }
 
-void	ft_lstadd_back(t_list **stack, t_list *new)
+void	ft_lstadd_back(Node **lst, Node *new)
 {
-	t_list	*tmp;
+	Node	*last;
 
-	if (*stack)
+	if (lst)
 	{
-		tmp = ft_lstlast(*stack);
-		tmp->next = new;
-		new->next = NULL;
-	}
-	else
-	{
-		*stack = new;
-		(*stack)->next = NULL;
+		if (*lst)
+		{
+			last = ft_lstlast(*lst);
+			last->next = new;
+			new->next = NULL;
+		}
+		else
+		{
+			*lst = new;
+			new->next = NULL;
+		}
 	}
 }
 
-t_list	*ft_lstlast(t_list *head)
+Node	*ft_lstlast(Node *head)
 {
-	t_list	*tmp;
+	Node	*tmp;
 
 	tmp = head;
 	while (tmp->next)
@@ -69,4 +64,11 @@ t_list	*ft_lstlast(t_list *head)
 			return (tmp);
 	}
 	return (tmp);
+}
+
+Node	*lastNode(Node *root)
+{
+	while (root && root->next)
+		root = root->next;
+	return (root);
 }

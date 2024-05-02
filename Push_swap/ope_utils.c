@@ -6,71 +6,102 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:07:23 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/19 15:51:06 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/02 15:52:57 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	swap(t_list **stack)
+void	push(Stack *stack, Node *node)
 {
-	t_list	*temp;
-
-	if (!*stack || !(*stack)->next)
-		return (-1);
-	temp = (*stack)->next;
-	(*stack)->next = temp->next;
-	temp->next = *stack;
-	*stack = temp;
-	return (0);
+	if (stack == NULL)
+	{
+		ft_error("Error\n");
+		return ;
+	}
+	if (node == NULL)
+	{
+		ft_error("Error\n");
+		return ;
+	}
+	node->prev = stack->top;
+	if (stack->top)
+	{
+		stack->top->next = node;
+	}
+	stack->top = node;
 }
 
-int	push(t_list **stack_a, t_list **stack_b)
+Node	*pop(Stack *stack)
 {
-	t_list	*temp;
+	Node	*node;
 
-	if (!*stack_b)
-		return (-1);
-	temp = *stack_b;
-	*stack_b = (*stack_b)->next;
-	temp->next = *stack_a;
-	*stack_a = temp;
-	return (0);
+	if (!stack->top)
+	{
+		return (NULL);
+	}
+	node = stack->top;
+	stack->top = node->prev;
+	if (stack->top)
+	{
+		stack->top->next = NULL;
+	}
+	return (node);
 }
 
-int	rotate(t_list **stack)
+void	swap(Node **stack)
 {
-	t_list	*first;
-	t_list	*last;
+	Node	*first;
+	Node	*second;
 
-	if (!*stack || !(*stack)->next)
-		return (-1);
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		return ;
+	}
 	first = *stack;
-	*stack = (*stack)->next;
+	second = first->next;
+	first->next = second->next;
+	second->next = first;
+	*stack = second;
+}
+
+void	rotate(Node **stack)
+{
+	Node	*first;
+	Node	*last;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		return ;
+	}
+	first = *stack;
+	*stack = first->next;
 	first->next = NULL;
 	last = *stack;
-	while (last->next)
-		last = last->next;
-	last->next = first;
-	return (0);
-}
-
-int	reverse_rotate(t_list **stack)
-{
-	t_list	*last;
-	t_list	*second_to_last;
-
-	if (!*stack || !(*stack)->next)
-		return (-1);
-	last = *stack;
-	second_to_last = NULL;
-	while (last->next)
+	while (last->next != NULL)
 	{
-		second_to_last = last;
 		last = last->next;
 	}
-	second_to_last->next = NULL;
+	last->next = first;
+}
+
+void	reverse_rotate(Node **stack)
+{
+	Node	*last;
+	Node	*prev;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		return ;
+	}
+	last = *stack;
+	prev = NULL;
+	while (last->next != NULL)
+	{
+		prev = last;
+		last = last->next;
+	}
+	prev->next = NULL;
 	last->next = *stack;
 	*stack = last;
-	return (0);
 }
