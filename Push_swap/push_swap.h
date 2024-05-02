@@ -6,60 +6,69 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:04:06 by drizzo            #+#    #+#             */
-/*   Updated: 2024/04/22 14:26:57 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/02 15:36:35 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "../Libft/libft.h"
+# include "libft/libft.h"
 # include <stdio.h>
 
-typedef struct s_list
+typedef struct Node
 {
-	int				value;
-	int				index;
-	struct s_list	*next;
-}					t_list;
+	int			value;
+	int			index;
+	struct Node	*next;
+	struct Node	*prev;
+}				Node;
 
-int					swap(t_list **stack);
-int					push(t_list **stack_a, t_list **stack_b);
-int					rotate(t_list **stack);
-int					reverse_rotate(t_list **stack);
+typedef struct Stack
+{
+	Node		*top;
+}				Stack;
 
-int					sa(t_list **stack_a);
-int					sb(t_list **stack_b);
-int					ss(t_list **stack_a, t_list **stack_b);
-int					pa(t_list **stack_a, t_list **stack_b);
-int					pb(t_list **stack_a, t_list **stack_b);
-int					ra(t_list **stack_a);
-int					rb(t_list **stack_b);
-int					rr(t_list **stack_a, t_list **stack_b);
-int					rra(t_list **stack_a);
-int					rrb(t_list **stack_b);
-int					rrr(t_list **stack_a, t_list **stack_b);
+void			push(Stack *stack, Node *node);
+Node			*pop(Stack *stack);
+void			swap(Node **stack);
+void			rotate(Node **stack);
+void			reverse_rotate(Node **stack);
 
-void				sort_5(t_list **stack_a, t_list **stack_b);
-void				sort(t_list **stack_a, t_list **stack_b);
+void			sa(Node **a);
+void			sb(Node **b);
+void			ss(Node **a, Node **b);
+void			pa(Stack *a, Stack *b);
+void			pb(Stack *a, Stack *b);
+void			ra(Node **a);
+void			rb(Node **b);
+void			rr(Node **a, Node **b);
+void			rra(Node **a);
+void			rrb(Node **b);
+void			rrr(Node **a, Node **b);
 
-void				radix_algo(t_list **stack_a, t_list **stack_b);
-void				quicksort(t_list **stack_a, int l, int h);
+Stack			*newStack(void);
+void			quicksort(Stack *stack, Stack *helper, int low, int high);
 
-int					get_dist(t_list **stack, int index);
-int					is_sorted(t_list *stack);
-void				ft_error(char *msg);
-void				ft_free(char **str);
-void				free_stack(t_list **stack);
+int				is_sorted(Node *stack);
+void			ft_error(char *msg);
+void			ft_free(char **str);
+void			free_stack(Node **top);
 
-void				ft_check_args(int argc, char **argv);
-void				index_stack(t_list **stack);
+void			ft_check_args(int argc, char **argv);
 
-int					ft_lstsize(t_list *head);
-t_list				*ft_lstnew(int value);
-void				ft_lstadd_back(t_list **stack, t_list *new);
-t_list				*ft_lstlast(t_list *head);
+Stack			*create_empty_stack(void);
+void			index_stack(Node **stack);
 
-int					main(int argc, char **argv);
+Node			*addNode(Node *head, int value);
+Node			*newNode(int data);
+void			ft_lstadd_back(Node **lst, Node *new);
+Node			*ft_lstlast(Node *head);
+Node			*lastNode(Node *root);
+
+void			sort_stack(Stack **stack_a, Stack **stack_b);
+int				main(int argc, char **argv);
+
+void			print_stack(Node *top);
 
 #endif
