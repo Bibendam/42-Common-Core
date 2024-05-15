@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:01:45 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/15 14:45:59 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/15 16:27:17 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	sort_stack(t_list **stack_a, t_list **stack_b)
 	if (ft_lstsize(*stack_a) <= 5)
 		sort_small(stack_a, stack_b);
 	else
-		hybrid_quicksort_insertion_sort(stack_a);
+		radix_sort(stack_a, stack_b);
 }
 
 int	main(int argc, char **argv)
