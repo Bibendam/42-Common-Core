@@ -6,14 +6,20 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:01:45 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/15 16:27:17 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/21 17:13:19 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <time.h>
 
-int		op_count = 0;
+void print_stack(t_stack *stack)
+{
+	while (stack != NULL)
+	{
+		printf("%d ", stack->value);
+		stack = stack->next;
+	}
+}
 
 int	is_sorted(t_stack *stack)
 {
@@ -50,7 +56,15 @@ int	main(int ac, char **av)
 	stack_a = fill_stack_values(ac, av);
 	stack_size = get_stack_size(stack_a);
 	assign_index(stack_a, stack_size + 1);
+
+	// printf("Before sorting:\n");
+	// print_stack(stack_a);
+
 	sort_stack(&stack_a, &stack_b, stack_size);
+
+	printf("After sorting: ");
+	print_stack(stack_a);
+
 	free_stack(&stack_a);
 	free_stack(&stack_b);
 	return (0);

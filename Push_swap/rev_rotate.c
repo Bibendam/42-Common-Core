@@ -6,13 +6,11 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:04:07 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/14 13:05:50 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/21 15:20:37 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-extern int op_count;
 
 static void	rev_rotate(t_stack **stack)
 {

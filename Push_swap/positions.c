@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   positions.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/21 15:15:07 by drizzo            #+#    #+#             */
+/*   Updated: 2024/05/21 15:15:07 by drizzo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static void	get_position(t_stack **stack)
@@ -37,8 +49,7 @@ int	get_lowest_index_position(t_stack **stack)
 	return (lowest_pos);
 }
 
-static int	get_target(t_stack **a, int b_idx,
-								int target_idx, int target_pos)
+static int	get_target(t_stack **a, int b_idx, int target_idx, int target_pos)
 {
 	t_stack	*tmp_a;
 

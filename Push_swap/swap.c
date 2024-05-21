@@ -6,13 +6,11 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:03:29 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/14 13:48:37 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/21 15:18:09 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-extern int op_count;
 
 static void	swap(t_stack *stack)
 {

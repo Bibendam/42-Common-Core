@@ -6,13 +6,9 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:04:11 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/14 13:05:01 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/21 15:20:58 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "push_swap.h"
-
-extern int op_count;
 
 #include "push_swap.h"
 

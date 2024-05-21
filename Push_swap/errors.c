@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:11:59 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/14 13:57:01 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/21 15:50:38 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,26 @@ static int	arg_is_zero(char *av)
 
 int	is_correct_input(char **av)
 {
-	int	i;
-	int	nb_zeros;
+	int		i;
+	int		j;
+	int		nb_zeros;
+	char	**split_args;
 
 	nb_zeros = 0;
 	i = 1;
 	while (av[i])
 	{
-		if (!arg_is_number(av[i]))
-			return (0);
-		nb_zeros += arg_is_zero(av[i]);
+		split_args = ft_split(av[i], ' ');
+		j = 0;
+		while (split_args[j])
+		{
+			if (!arg_is_number(split_args[j]))
+				return (0);
+			nb_zeros += arg_is_zero(split_args[j]);
+			free(split_args[j]);
+			j++;
+		}
+		free(split_args);
 		i++;
 	}
 	if (nb_zeros > 1)

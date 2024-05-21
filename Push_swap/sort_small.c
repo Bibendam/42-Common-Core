@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:09:15 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/14 14:19:51 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/21 15:54:48 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	find_highest_index(t_stack *stack)
 {
-	int		index;
+	int	index;
 
 	index = stack->index;
 	while (stack)
@@ -28,7 +28,7 @@ static int	find_highest_index(t_stack *stack)
 
 void	sort_small(t_stack **stack)
 {
-	int		highest;
+	int	highest;
 
 	if (is_sorted(*stack))
 		return ;
