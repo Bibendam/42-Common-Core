@@ -11,79 +11,47 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <time.h>
 
 int		op_count = 0;
 
-void	print_stack(t_list *stack)
+int	is_sorted(t_stack *stack)
 {
-	t_list	*current;
-
-	current = stack;
-	printf("Stack: ");
-	while (current != NULL)
+	while (stack->next != NULL)
 	{
-		printf("%d ", current->value);
-		current = current->next;
+		if (stack->value > stack->next->value)
+			return (0);
+		stack = stack->next;
 	}
-	printf("\n");
+	return (1);
 }
 
-void	init_stack(t_list **stack, int argc, char **argv)
+static void	sort_stack(t_stack **stack_a, t_stack **stack_b, int stack_size)
 {
-	t_list	*new;
-	char	**args;
-	int		i;
-
-	i = 0;
-	if (argc == 2)
-		args = ft_split(argv[1], ' ');
-	else
-	{
-		i = 1;
-		args = argv;
-	}
-	while (args[i])
-	{
-		new = ft_lstnew(ft_atoi(args[i]));
-		ft_lstadd_back(stack, new);
-		i++;
-	}
-	index_stack(stack);
-	if (argc == 2)
-		ft_free(args);
+	if (stack_size == 2 && !is_sorted(*stack_a))
+		sa(stack_a);
+	else if (stack_size == 3)
+		sort_small(stack_a);
+	else if (stack_size > 3 && !is_sorted(*stack_a))
+		sort(stack_a, stack_b);
 }
 
-void	sort_stack(t_list **stack_a, t_list **stack_b)
+int	main(int ac, char **av)
 {
-	if (ft_lstsize(*stack_a) <= 5)
-		sort_small(stack_a, stack_b);
-	else
-		radix_sort(stack_a, stack_b);
-}
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+	int		stack_size;
 
-int	main(int argc, char **argv)
-{
-	t_list	**stack_a;
-	t_list	**stack_b;
-
-	if (argc < 2)
-		ft_error("Error\n");
-	ft_check_args(argc, argv);
-	stack_a = (t_list **)malloc(sizeof(t_list));
-	stack_b = (t_list **)malloc(sizeof(t_list));
-	*stack_a = NULL;
-	*stack_b = NULL;
-	init_stack(stack_a, argc, argv);
-	if (is_sorted(stack_a))
-	{
-		free_stack(stack_a);
-		free_stack(stack_b);
+	if (ac < 2)
 		return (0);
-	}
-	sort_stack(stack_a, stack_b);
-	// printf("Sorted stack_a: ");
-	// print_stack(*stack_a);
-	free_stack(stack_a);
-	free_stack(stack_b);
+	if (!is_correct_input(av))
+		exit_error(NULL, NULL);
+	stack_b = NULL;
+	stack_a = fill_stack_values(ac, av);
+	stack_size = get_stack_size(stack_a);
+	assign_index(stack_a, stack_size + 1);
+	sort_stack(&stack_a, &stack_b, stack_size);
+	free_stack(&stack_a);
+	free_stack(&stack_b);
 	return (0);
 }

@@ -12,40 +12,54 @@
 
 #include "push_swap.h"
 
-static t_list	*get_next_min(t_list **stack)
+t_stack	*fill_stack_values(int ac, char **av)
 {
-	t_list	*head;
-	t_list	*min;
-	int		has_min;
+	t_stack		*stack_a;
+	long int	nb;
+	int			i;
 
-	min = NULL;
-	has_min = 0;
-	head = *stack;
-	if (head)
+	stack_a = NULL;
+	nb = 0;
+	i = 1;
+	while (i < ac)
 	{
-		while (head)
-		{
-			if ((head->index == -1) && (!has_min || head->value < min->value))
-			{
-				min = head;
-				has_min = 1;
-			}
-			head = head->next;
-		}
+		nb = ft_atoi(av[i]);
+		if (nb > INT_MAX || nb < INT_MIN)
+			exit_error(&stack_a, NULL);
+		if (i == 1)
+			stack_a = stack_new((int)nb);
+		else
+			stack_add_bottom(&stack_a, stack_new((int)nb));
+		i++;
 	}
-	return (min);
+	return (stack_a);
 }
 
-void	index_stack(t_list **stack)
+void	assign_index(t_stack *stack_a, int stack_size)
 {
-	t_list	*head;
-	int		index;
+	t_stack	*ptr;
+	t_stack	*highest;
+	int		value;
 
-	index = 0;
-	head = get_next_min(stack);
-	while (head)
+	while (--stack_size > 0)
 	{
-		head->index = index++;
-		head = get_next_min(stack);
+		ptr = stack_a;
+		value = INT_MIN;
+		highest = NULL;
+		while (ptr)
+		{
+			if (ptr->value == INT_MIN && ptr->index == 0)
+				ptr->index = 1;
+			if (ptr->value > value && ptr->index == 0)
+			{
+				value = ptr->value;
+				highest = ptr;
+				ptr = stack_a;
+			}
+			else
+				ptr = ptr->next;
+		}
+		if (highest != NULL)
+			highest->index = stack_size;
 	}
 }

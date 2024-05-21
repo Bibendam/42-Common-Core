@@ -13,84 +13,86 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "libft/libft.h"
-# include <stdio.h>
+# include <stddef.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include <limits.h>
+# include <stdio.h>
 
-typedef struct s_list
+typedef struct s_stack
 {
 	int				value;
 	int				index;
-	struct s_list	*next;
-}					t_list;
+	int				pos;
+	int				target_pos;
+	int				cost_a;
+	int				cost_b;
+	struct s_stack	*next;
+}	t_stack;
 
-// swap.c
+/* Initialization */
 
-int					swap(t_list **stack);
-int					sa(t_list **stack_a);
-int					sb(t_list **stack_b);
-int					ss(t_list **stack_a, t_list **stack_b);
+t_stack		*fill_stack_values(int ac, char **av);
+void		assign_index(t_stack *stack_a, int ac);
 
-// push.c
+/* Sorting Algorithms */
 
-int					push(t_list **stack_to, t_list **stack_from);
-int					pa(t_list **stack_a, t_list **stack_b);
-int					pb(t_list **stack_a, t_list **stack_b);
+int			is_sorted(t_stack *stack);
+void		sort_small(t_stack **stack);
+void		sort(t_stack **stack_a, t_stack **stack_b);
 
-// rotate.c
+/* Position */
 
-int					rotate(t_list **stack);
-int					ra(t_list **stack_a);
-int					rb(t_list **stack_b);
-int					rr(t_list **stack_a, t_list **stack_b);
+int			get_lowest_index_position(t_stack **stack);
+void		get_target_position(t_stack **stack_a, t_stack **stack_b);
 
-// rev_rotate.c
+/* Cost */
 
-int					rev_rotate(t_list **stack);
-int					rra(t_list **stack_a);
-int					rrb(t_list **stack_b);
-int					rrr(t_list **stack_a, t_list **stack_b);
+void		find_best_move(t_stack **stack_a, t_stack **stack_b);
+void		do_best_move(t_stack **stack_a, t_stack **stack_b);
 
-// sort_utils.c
+/* Calculate Move */
 
-int					is_sorted(t_list **stack);
-int					get_min(t_list **stack, int val);
-int					get_distance(t_list **stack, int index);
+void		do_move(t_stack **a, t_stack **b, int cost_a, int cost_b);
 
-// sort_small.c
+/* Operations */
 
-void				sort_small(t_list **stack_a, t_list **stack_b);
+void		pa(t_stack **stack_a, t_stack **stack_b);
+void		pb(t_stack **stack_a, t_stack **stack_b);
+void		sa(t_stack **stack_a);
+void		sb(t_stack **stack_b);
+void		ss(t_stack **stack_a, t_stack **stack_b);
+void		ra(t_stack **stack_a);
+void		rb(t_stack **stack_b);
+void		rr(t_stack **stack_a, t_stack **stack_b);
+void		rrr(t_stack **stack_a, t_stack **stack_b);
+void		rra(t_stack **stack_a);
+void		rrb(t_stack **stack_b);
 
-// sort_big.c
+/* Stack Functions */
 
-void				radix_sort(t_list **stack_a, t_list **stack_b);
-void				insertion_sort(t_list **stack_a);
-void				quicksort(t_list **stack_a, int low, int high);
-void				hybrid_quicksort_insertion_sort(t_list **stack_a);
+t_stack		*get_stack_bottom(t_stack *stack);
+t_stack		*get_stack_before_bottom(t_stack *stack);
+t_stack		*stack_new(int value);
+void		stack_add_bottom(t_stack **stack, t_stack *new);
+int			get_stack_size(t_stack	*stack);
 
-// list_utils.c
+/* Utils */
 
-t_list				*ft_lstnew(int value);
-void				ft_lstadd_back(t_list **stack, t_list *new);
-void				ft_lstadd_front(t_list **stack, t_list *new);
-t_list				*ft_lstlast(t_list *head);
-int					ft_lstsize(t_list *head);
+void		free_stack(t_stack **stack);
+long int	ft_atoi(const char *str);
+void		ft_putstr(char *str);
+int			nb_abs(int nb);
 
-// errors.c
+/* Error */
 
-void				ft_error(char *msg);
-void				ft_check_args(int argc, char **argv);
+void		exit_error(t_stack **stack_a, t_stack **stack_b);
 
-// free.c
+/* Input Check */
 
-void				ft_free(char **str);
-void				free_stack(t_list **stack);
-
-// index.c
-
-void				index_stack(t_list **stack);
-
-// main.c
-int					main(int argc, char **argv);
+int			is_correct_input(char **av);
+int			is_digit(char c);
+int			is_sign(char c);
+int			nbstr_cmp(const char *s1, const char *s2);
 
 #endif

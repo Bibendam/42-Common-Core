@@ -12,51 +12,68 @@
 
 #include "push_swap.h"
 
-static int	get_max_bits(t_list **stack)
+static void	push_all_save_three(t_stack **stack_a, t_stack **stack_b)
 {
-	t_list	*head;
-	int		max;
-	int		max_bits;
+	int	stack_size;
+	int	pushed;
+	int	i;
 
-	head = *stack;
-	max = head->index;
-	max_bits = 0;
-	while (head)
-	{
-		if (head->index > max)
-			max = head->index;
-		head = head->next;
-	}
-	while ((max >> max_bits) != 0)
-		max_bits++;
-	return (max_bits);
-}
-
-void	radix_sort(t_list **stack_a, t_list **stack_b)
-{
-	t_list	*head_a;
-	int		i;
-	int		j;
-	int		size;
-	int		max_bits;
-
-	head_a = *stack_a;
-	size = ft_lstsize(head_a);
-	max_bits = get_max_bits(stack_a);
+	stack_size = get_stack_size(*stack_a);
+	pushed = 0;
 	i = 0;
-	while (i < max_bits)
+	while (stack_size > 6 && i < stack_size && pushed < stack_size / 2)
 	{
-		j = 0;
-		while (j++ < size)
+		if ((*stack_a)->index <= stack_size / 2)
 		{
-			head_a = *stack_a;
-			if (((head_a->index >> i) & 1) == 1)
-				ra(stack_a);
-			else
-				pb(stack_a, stack_b);
+			pb(stack_a, stack_b);
+			pushed++;
 		}
-		while (ft_lstsize(*stack_b) != 0)
-			pa(stack_a, stack_b);
+		else
+			ra(stack_a);
 		i++;
 	}
+	while (stack_size - pushed > 3)
+	{
+		pb(stack_a, stack_b);
+		pushed++;
+	}
+}
+
+static void	shift_stack(t_stack **stack_a)
+{
+	int	lowest_pos;
+	int	stack_size;
+
+	stack_size = get_stack_size(*stack_a);
+	lowest_pos = get_lowest_index_position(stack_a);
+	if (lowest_pos > stack_size / 2)
+	{
+		while (lowest_pos < stack_size)
+		{
+			rra(stack_a);
+			lowest_pos++;
+		}
+	}
+	else
+	{
+		while (lowest_pos > 0)
+		{
+			ra(stack_a);
+			lowest_pos--;
+		}
+	}
+}
+
+void	sort(t_stack **stack_a, t_stack **stack_b)
+{
+	push_all_save_three(stack_a, stack_b);
+	sort_small(stack_a);
+	while (*stack_b)
+	{
+		get_target_position(stack_a, stack_b);
+		find_best_move(stack_a, stack_b);
+		do_best_move(stack_a, stack_b);
+	}
+	if (!is_sorted(*stack_a))
+		shift_stack(stack_a);
 }

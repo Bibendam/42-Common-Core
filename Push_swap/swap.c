@@ -12,50 +12,37 @@
 
 #include "push_swap.h"
 
-int	swap(t_list **stack)
-{
-	t_list	*head;
-	t_list	*next;
-	int		tmp_val;
-	int		tmp_index;
+extern int op_count;
 
-	if (ft_lstsize(*stack) < 2)
-		return (-1);
-	head = *stack;
-	next = head->next;
-	if (!head && !next)
-		ft_error("Error\n");
-	tmp_val = head->value;
-	tmp_index = head->index;
-	head->value = next->value;
-	head->index = next->index;
-	next->value = tmp_val;
-	next->index = tmp_index;
-	return (0);
+static void	swap(t_stack *stack)
+{
+	int	tmp;
+
+	if (stack == NULL || stack->next == NULL)
+		return ;
+	tmp = stack->value;
+	stack->value = stack->next->value;
+	stack->next->value = tmp;
+	tmp = stack->index;
+	stack->index = stack->next->index;
+	stack->next->index = tmp;
 }
 
-int	sa(t_list **stack_a)
+void	sa(t_stack **stack_a)
 {
-	if (swap(stack_a) == -1)
-		return (-1);
-	ft_putendl_fd("sa", 1);
-	return (0);
+	swap(*stack_a);
+	ft_putstr("sa\n");
 }
 
-int	sb(t_list **stack_b)
+void	sb(t_stack **stack_b)
 {
-	if (swap(stack_b) == -1)
-		return (-1);
-	ft_putendl_fd("sb", 1);
-	return (0);
+	swap(*stack_b);
+	ft_putstr("sb\n");
 }
 
-int	ss(t_list **stack_a, t_list **stack_b)
+void	ss(t_stack **stack_a, t_stack **stack_b)
 {
-	if ((ft_lstsize(*stack_a) < 2) || (ft_lstsize(*stack_b) < 2))
-		return (-1);
-	swap(stack_a);
-	swap(stack_b);
-	ft_putendl_fd("ss", 1);
-	return (0);
+	swap(*stack_a);
+	swap(*stack_b);
+	ft_putstr("ss\n");
 }

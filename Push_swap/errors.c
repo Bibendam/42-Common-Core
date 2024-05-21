@@ -12,65 +12,71 @@
 
 #include "push_swap.h"
 
-void	ft_error(char *msg)
+static int	arg_is_number(char *av)
 {
-	ft_putendl_fd(msg, 2);
-	exit(0);
+	int	i;
+
+	i = 0;
+	if (is_sign(av[i]) && av[i + 1] != '\0')
+		i++;
+	while (av[i] && is_digit(av[i]))
+		i++;
+	if (av[i] != '\0' && !is_digit(av[i]))
+		return (0);
+	return (1);
 }
 
-static int	ft_contains(int num, char **argv, int i)
+static int	have_duplicates(char **av)
 {
-	i++;
-	while (argv[i])
+	int	i;
+	int	j;
+
+	i = 1;
+	while (av[i])
 	{
-		if (ft_atoi(argv[i]) == num)
-			return (1);
+		j = 1;
+		while (av[j])
+		{
+			if (j != i && nbstr_cmp(av[i], av[j]) == 0)
+				return (1);
+			j++;
+		}
 		i++;
 	}
 	return (0);
 }
 
-static int	ft_isnum(char *num)
+static int	arg_is_zero(char *av)
 {
 	int	i;
 
 	i = 0;
-	if (num[0] == '-')
+	if (is_sign(av[i]))
 		i++;
-	while (num[i])
-	{
-		if (!ft_isdigit(num[i]))
-			return (0);
+	while (av[i] && av[i] == '0')
 		i++;
-	}
+	if (av[i] != '\0')
+		return (0);
 	return (1);
 }
 
-void	ft_check_args(int argc, char **argv)
+int	is_correct_input(char **av)
 {
-	int		i;
-	long	tmp;
-	char	**args;
+	int	i;
+	int	nb_zeros;
 
-	i = 0;
-	if (argc == 2)
-		args = ft_split(argv[1], ' ');
-	else
+	nb_zeros = 0;
+	i = 1;
+	while (av[i])
 	{
-		i = 1;
-		args = argv;
-	}
-	while (args[i])
-	{
-		tmp = ft_atoi(args[i]);
-		if (!ft_isnum(args[i]))
-			ft_error("Error\n");
-		if (ft_contains(tmp, args, i))
-			ft_error("Error\n");
-		if (tmp < -2147483648 || tmp > 2147483647)
-			ft_error("Error\n");
+		if (!arg_is_number(av[i]))
+			return (0);
+		nb_zeros += arg_is_zero(av[i]);
 		i++;
 	}
-	if (argc == 2)
-		ft_free(args);
+	if (nb_zeros > 1)
+		return (0);
+	if (have_duplicates(av))
+		return (0);
+	return (1);
 }
