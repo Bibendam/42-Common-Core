@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:13:21 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/14 13:23:49 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/05/23 20:15:11 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,29 @@ t_stack	*fill_stack_values(int ac, char **av)
 {
 	t_stack		*stack_a;
 	long int	nb;
-	int			i;
+	int			i, j;
+	char        **tokens;
 
 	stack_a = NULL;
 	nb = 0;
 	i = 1;
 	while (i < ac)
 	{
-		nb = ft_atoi(av[i]);
-		if (nb > INT_MAX || nb < INT_MIN)
-			exit_error(&stack_a, NULL);
-		if (i == 1)
-			stack_a = stack_new((int)nb);
-		else
-			stack_add_bottom(&stack_a, stack_new((int)nb));
+		tokens = ft_split(av[i], ' ');
+		j = 0;
+		while (tokens[j] != NULL)
+		{
+			nb = ft_atoi(tokens[j]);
+			if (nb > INT_MAX || nb < INT_MIN)
+				exit_error(&stack_a, NULL);
+			if (stack_a == NULL)
+				stack_a = stack_new((int)nb);
+			else
+				stack_add_bottom(&stack_a, stack_new((int)nb));
+			free(tokens[j]);
+			j++;
+		}
+		free(tokens);
 		i++;
 	}
 	return (stack_a);
