@@ -6,74 +6,75 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:06:44 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/15 13:14:27 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/06/18 15:49:46 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	push_all_save_three(t_stack **stack_a, t_stack **stack_b)
+static int	get_max_bits(t_stack *stack)
+{
+	int	max_value;
+	int	max_bits;
+
+	max_value = 0;
+	max_bits = 0;
+	while (stack)
+	{
+		if (stack->index > max_value)
+			max_value = stack->index;
+		stack = stack->next;
+	}
+	while (max_value)
+	{
+		max_value >>= 1;
+		max_bits++;
+	}
+	return (max_bits);
+}
+
+static void	push_all_to_b(t_stack **stack_a, t_stack **stack_b, int bit)
 {
 	int	stack_size;
-	int	pushed;
 	int	i;
 
 	stack_size = get_stack_size(*stack_a);
-	pushed = 0;
 	i = 0;
-	while (stack_size > 6 && i < stack_size && pushed < stack_size / 2)
+	while (i < stack_size)
 	{
-		if ((*stack_a)->index <= stack_size / 2)
-		{
-			pb(stack_a, stack_b);
-			pushed++;
-		}
-		else
+		if (((*stack_a)->index >> bit) & 1)
 			ra(stack_a);
+		else
+			pb(stack_a, stack_b);
 		i++;
 	}
-	while (stack_size - pushed > 3)
-	{
-		pb(stack_a, stack_b);
-		pushed++;
-	}
 }
 
-static void	shift_stack(t_stack **stack_a)
+static void	push_all_to_a(t_stack **stack_a, t_stack **stack_b)
 {
-	int	lowest_pos;
 	int	stack_size;
+	int	i;
 
-	stack_size = get_stack_size(*stack_a);
-	lowest_pos = get_lowest_index_position(stack_a);
-	if (lowest_pos > stack_size / 2)
+	stack_size = get_stack_size(*stack_b);
+	i = 0;
+	while (i < stack_size)
 	{
-		while (lowest_pos < stack_size)
-		{
-			rra(stack_a);
-			lowest_pos++;
-		}
-	}
-	else
-	{
-		while (lowest_pos > 0)
-		{
-			ra(stack_a);
-			lowest_pos--;
-		}
+		pa(stack_a, stack_b);
+		i++;
 	}
 }
 
-void	sort(t_stack **stack_a, t_stack **stack_b)
+void	radix_sort(t_stack **stack_a, t_stack **stack_b)
 {
-	push_all_save_three(stack_a, stack_b);
-	sort_small(stack_a);
-	while (*stack_b)
+	int	max_bits;
+	int	bit;
+
+	max_bits = get_max_bits(*stack_a);
+	bit = 0;
+	while (bit < max_bits)
 	{
-		get_target_position(stack_a, stack_b);
-		find_best_move(stack_a, stack_b);
-		do_best_move(stack_a, stack_b);
+		push_all_to_b(stack_a, stack_b, bit);
+		push_all_to_a(stack_a, stack_b);
+		bit++;
 	}
-	if (!is_sorted(*stack_a))
-		shift_stack(stack_a);
 }

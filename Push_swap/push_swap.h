@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:18:56 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/21 15:47:30 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/06/18 15:54:49 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void				assign_index(t_stack *stack_a, int ac);
 
 int					is_sorted(t_stack *stack);
 void				sort_small(t_stack **stack);
-void				sort(t_stack **stack_a, t_stack **stack_b);
+void				sort_5(t_stack **stack_a, t_stack **stack_b);
+void				radix_sort(t_stack **stack_a, t_stack **stack_b);
 
 /* Position */
 
