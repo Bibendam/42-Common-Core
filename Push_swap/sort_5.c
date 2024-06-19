@@ -6,66 +6,67 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:59:05 by drizzo            #+#    #+#             */
-/*   Updated: 2024/06/18 15:59:43 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/06/19 14:19:02 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	find_smallest_index(t_stack *stack)
+static int	get_min(t_stack **stack, int val)
 {
-	int	min_index;
+	t_stack	*head;
+	int		min;
 
-	min_index = stack->index;
-	while (stack)
+	head = *stack;
+	min = head->index;
+	while (head->next)
 	{
-		if (stack->index < min_index)
-			min_index = stack->index;
-		stack = stack->next;
+		head = head->next;
+		if ((head->index < min) && head->index != val)
+			min = head->index;
 	}
-	return (min_index);
+	return (min);
 }
 
-static int	find_second_smallest_index(t_stack *stack)
+static int	get_distance(t_stack **stack, int index)
 {
-	int	min_index;
-	int	second_min_index;
+	t_stack	*head;
+	int		distance;
 
-	min_index = find_smallest_index(stack);
-	second_min_index = INT_MAX;
-	while (stack)
+	distance = 0;
+	head = *stack;
+	while (head)
 	{
-		if (stack->index < second_min_index && stack->index != min_index)
-			second_min_index = stack->index;
-		stack = stack->next;
+		if (head->index == index)
+			break ;
+		distance++;
+		head = head->next;
 	}
-	return (second_min_index);
+	return (distance);
 }
 
 void	sort_5(t_stack **stack_a, t_stack **stack_b)
 {
-	int	stack_size;
-	int	min1;
-	int	min2;
+	int	distance;
 
-	stack_size = get_stack_size(*stack_a);
-	if (stack_size <= 3)
-		sort_small(stack_a);
-	else
+	distance = get_distance(stack_a, get_min(stack_a, -1));
+	if (distance == 1)
+		ra(stack_a);
+	else if (distance == 2)
 	{
-		min1 = find_smallest_index(*stack_a);
-		min2 = find_second_smallest_index(*stack_a);
-		while ((*stack_a)->index == min1 || (*stack_a)->index == min2)
-		{
-			pb(stack_a, stack_b);
-			if ((*stack_a)->index == min1)
-				min1 = find_smallest_index(*stack_a);
-			else
-				min2 = find_second_smallest_index(*stack_a);
-		}
-		sort_small(stack_a);
-		while (get_stack_size(*stack_b) > 0)
-			pa(stack_a, stack_b);
-		sort_small(stack_a);
+		ra(stack_a);
+		ra(stack_a);
 	}
+	else if (distance == 3)
+	{
+		rra(stack_a);
+		rra(stack_a);
+	}
+	else if (distance == 4)
+		rra(stack_a);
+	if (is_sorted(*stack_a))
+		return ;
+	pb(stack_a, stack_b);
+	sort_small(stack_a);
+	pa(stack_a, stack_b);
 }

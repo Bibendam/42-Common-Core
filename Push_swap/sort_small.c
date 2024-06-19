@@ -6,13 +6,13 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:09:15 by drizzo            #+#    #+#             */
-/*   Updated: 2024/06/18 15:59:18 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/06/19 14:13:47 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	find_highest_index(t_stack *stack)
+int	find_highest_index(t_stack *stack)
 {
 	int	index;
 

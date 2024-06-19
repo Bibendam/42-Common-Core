@@ -7,8 +7,9 @@ CFLAGS = -g -Wall -Wextra -Werror -Iincludes
 RM = rm -f
 
 SRCS = swap.c push.c rotate.c rev_rotate.c op_helper.c \
-		sort_utils.c sort_small.c sort_big.c errors.c errors_utils.c \
-		utils.c ft_split.c stacks.c positions.c index.c main.c
+		sort_utils.c sort_small.c sort_5.c sort_big.c \
+		errors.c errors_utils.c utils.c ft_split.c \
+		stacks.c positions.c index.c main.c
 
 OBJS = $(SRCS:.c=.o)
 

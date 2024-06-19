@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:01:45 by drizzo            #+#    #+#             */
-/*   Updated: 2024/06/18 15:55:22 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/06/19 14:21:01 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	sort_stack(t_stack **stack_a, t_stack **stack_b, int stack_size)
 		sort_small(stack_a);
 	else if (stack_size > 3 && stack_size <= 5)
 		sort_5(stack_a, stack_b);
-	else if (stack_size > 3 && !is_sorted(*stack_a))
+	else if (stack_size > 5 && !is_sorted(*stack_a))
 		radix_sort(stack_a, stack_b);
 }
 
