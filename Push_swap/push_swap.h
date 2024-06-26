@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:18:56 by drizzo            #+#    #+#             */
-/*   Updated: 2024/06/19 14:16:25 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/06/26 15:36:00 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,10 @@ void				assign_index(t_stack *stack_a, int ac);
 /* Sorting Algorithms */
 
 int					is_sorted(t_stack *stack);
-void				sort_small(t_stack **stack);
+int					get_min(t_stack **stack, int val);
+int					get_distance(t_stack **stack, int index);
 void				sort_5(t_stack **stack_a, t_stack **stack_b);
 void				radix_sort(t_stack **stack_a, t_stack **stack_b);
-
-/* Position */
-
-int					get_lowest_index_position(t_stack **stack);
-void				get_target_position(t_stack **stack_a, t_stack **stack_b);
-
-/* Cost */
-
-void				find_best_move(t_stack **stack_a, t_stack **stack_b);
-void				do_best_move(t_stack **stack_a, t_stack **stack_b);
-
-/* Calculate Move */
-
-void				do_move(t_stack **a, t_stack **b, int cost_a, int cost_b);
 
 /* Operations */
 
@@ -83,7 +70,6 @@ int					get_stack_size(t_stack *stack);
 void				free_stack(t_stack **stack);
 long int			ft_atoi(const char *str);
 void				ft_putstr(char *str);
-int					nb_abs(int nb);
 
 /* Split */
 
