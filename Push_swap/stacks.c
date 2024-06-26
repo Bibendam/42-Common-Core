@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   stacks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:01:24 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/14 13:03:11 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/06/26 15:50:15 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_stack	*stack_new(int value)
 {
 	t_stack	*new;
 
-	new = malloc(sizeof * new);
+	new = malloc(sizeof(*new));
 	if (!new)
 		return (NULL);
 	new->value = value;
@@ -58,7 +58,7 @@ void	stack_add_bottom(t_stack **stack, t_stack *new)
 	tail->next = new;
 }
 
-int	get_stack_size(t_stack	*stack)
+int	get_stack_size(t_stack *stack)
 {
 	int	size;
 

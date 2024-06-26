@@ -6,39 +6,45 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:13:21 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/23 20:15:11 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/06/26 15:40:15 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+static void	handle_tokens(char *arg, t_stack **stack_a)
+{
+	char		**tokens;
+	long int	nb;
+	int			j;
+
+	j = 0;
+	tokens = ft_split(arg, ' ');
+	while (tokens[j] != NULL)
+	{
+		nb = ft_atoi(tokens[j]);
+		if (nb > INT_MAX || nb < INT_MIN)
+			exit_error(stack_a, NULL);
+		if (*stack_a == NULL)
+			*stack_a = stack_new((int)nb);
+		else
+			stack_add_bottom(stack_a, stack_new((int)nb));
+		free(tokens[j]);
+		j++;
+	}
+	free(tokens);
+}
+
 t_stack	*fill_stack_values(int ac, char **av)
 {
-	t_stack		*stack_a;
-	long int	nb;
-	int			i, j;
-	char        **tokens;
+	t_stack	*stack_a;
+	int		i;
 
-	stack_a = NULL;
-	nb = 0;
 	i = 1;
+	stack_a = NULL;
 	while (i < ac)
 	{
-		tokens = ft_split(av[i], ' ');
-		j = 0;
-		while (tokens[j] != NULL)
-		{
-			nb = ft_atoi(tokens[j]);
-			if (nb > INT_MAX || nb < INT_MIN)
-				exit_error(&stack_a, NULL);
-			if (stack_a == NULL)
-				stack_a = stack_new((int)nb);
-			else
-				stack_add_bottom(&stack_a, stack_new((int)nb));
-			free(tokens[j]);
-			j++;
-		}
-		free(tokens);
+		handle_tokens(av[i], &stack_a);
 		i++;
 	}
 	return (stack_a);

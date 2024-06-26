@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 15:18:33 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/21 15:18:33 by drizzo           ###   ########.fr       */
+/*   Created: 2024/06/26 15:24:50 by drizzo            #+#    #+#             */
+/*   Updated: 2024/06/26 15:36:18 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	exit_error(t_stack **stack_a, t_stack **stack_b)
 	if (stack_b == NULL || *stack_b != NULL)
 		free_stack(stack_b);
 	write(2, "Error\n", 6);
-	exit (1);
+	exit(1);
 }
 
 long int	ft_atoi(const char *str)
@@ -71,11 +71,4 @@ void	ft_putstr(char *str)
 		write(1, &str[i], 1);
 		i++;
 	}
-}
-
-int	nb_abs(int nb)
-{
-	if (nb < 0)
-		return (nb * -1);
-	return (nb);
 }

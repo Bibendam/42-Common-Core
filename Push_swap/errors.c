@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:11:59 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/21 15:50:38 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/06/26 15:41:47 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,25 @@ static int	arg_is_zero(char *av)
 	return (1);
 }
 
+static int	handle_tokens(char **split_args, int *nb_zeros)
+{
+	int	j;
+
+	j = 0;
+	while (split_args[j])
+	{
+		if (!arg_is_number(split_args[j]))
+			return (0);
+		*nb_zeros += arg_is_zero(split_args[j]);
+		free(split_args[j]);
+		j++;
+	}
+	return (1);
+}
+
 int	is_correct_input(char **av)
 {
 	int		i;
-	int		j;
 	int		nb_zeros;
 	char	**split_args;
 
@@ -72,15 +87,8 @@ int	is_correct_input(char **av)
 	while (av[i])
 	{
 		split_args = ft_split(av[i], ' ');
-		j = 0;
-		while (split_args[j])
-		{
-			if (!arg_is_number(split_args[j]))
-				return (0);
-			nb_zeros += arg_is_zero(split_args[j]);
-			free(split_args[j]);
-			j++;
-		}
+		if (!handle_tokens(split_args, &nb_zeros))
+			return (0);
 		free(split_args);
 		i++;
 	}

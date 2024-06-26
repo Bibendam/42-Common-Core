@@ -5,54 +5,42 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 13:09:48 by drizzo            #+#    #+#             */
-/*   Updated: 2024/05/14 13:10:21 by drizzo           ###   ########.fr       */
+/*   Created: 2024/05/14 13:09:15 by drizzo            #+#    #+#             */
+/*   Updated: 2024/06/26 15:07:01 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	find_best_move(t_stack **stack_a, t_stack **stack_b)
+int	get_min(t_stack **stack, int val)
 {
-	t_stack	*tmp_a;
-	t_stack	*tmp_b;
-	int		size_a;
-	int		size_b;
+	t_stack	*head;
+	int		min;
 
-	tmp_a = *stack_a;
-	tmp_b = *stack_b;
-	size_a = get_stack_size(tmp_a);
-	size_b = get_stack_size(tmp_b);
-	while (tmp_b)
+	head = *stack;
+	min = head->index;
+	while (head->next)
 	{
-		tmp_b->cost_b = tmp_b->pos;
-		if (tmp_b->pos > size_b / 2)
-			tmp_b->cost_b = (size_b - tmp_b->pos) * -1;
-		tmp_b->cost_a = tmp_b->target_pos;
-		if (tmp_b->target_pos > size_a / 2)
-			tmp_b->cost_a = (size_a - tmp_b->target_pos) * -1;
-		tmp_b = tmp_b->next;
+		head = head->next;
+		if ((head->index < min) && head->index != val)
+			min = head->index;
 	}
+	return (min);
 }
 
-void	do_best_move(t_stack **stack_a, t_stack **stack_b)
+int	get_distance(t_stack **stack, int index)
 {
-	t_stack	*tmp;
-	int		cheapest;
-	int		cost_a;
-	int		cost_b;
+	t_stack	*head;
+	int		distance;
 
-	tmp = *stack_b;
-	cheapest = INT_MAX;
-	while (tmp)
+	distance = 0;
+	head = *stack;
+	while (head)
 	{
-		if (nb_abs(tmp->cost_a) + nb_abs(tmp->cost_b) < nb_abs(cheapest))
-		{
-			cheapest = nb_abs(tmp->cost_b) + nb_abs(tmp->cost_a);
-			cost_a = tmp->cost_a;
-			cost_b = tmp->cost_b;
-		}
-		tmp = tmp->next;
+		if (head->index == index)
+			break ;
+		distance++;
+		head = head->next;
 	}
-	do_move(stack_a, stack_b, cost_a, cost_b);
+	return (distance);
 }
