@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:09:17 by drizzo            #+#    #+#             */
-/*   Updated: 2024/03/13 11:50:04 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/04/18 15:16:33 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static const char	*get_sign(const char *str, int *sign)
 int	ft_atoi(const char *str)
 {
 	int	sign;
-	int	num;
 	int	overflow;
+	int	num;
 
 	sign = 1;
 	num = 0;
