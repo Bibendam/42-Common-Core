@@ -6,16 +6,21 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:09:22 by drizzo            #+#    #+#             */
-/*   Updated: 2024/03/12 13:37:19 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/08/07 15:59:12 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <stdarg.h>
 # include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 4098
+# endif
 
 // Mandatory
 
@@ -73,5 +78,27 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+
+// Printf
+
+int					ft_hexa_len(unsigned int n);
+void				ft_put_hexa(unsigned int n, const char format);
+int					ft_print_hex(unsigned int n, const char format);
+int					ft_ptr_len(unsigned long n);
+void				ft_put_ptr(unsigned long n);
+int					ft_print_ptr(unsigned long long ptr);
+int					ft_unsigned_len(unsigned int n);
+void				*ft_uitoa(unsigned int n);
+int					ft_print_unsigned(unsigned int n);
+void				ft_putstr(char *s);
+int					ft_printstr(char *s);
+int					ft_printnbr(int n);
+int					ft_printpercent(void);
+
+int					ft_printf(const char *str, ...);
+
+// GNL
+
+char				*get_next_line(int fd);
 
 #endif
