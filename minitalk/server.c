@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:47:49 by drizzo            #+#    #+#             */
-/*   Updated: 2024/08/07 16:16:50 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/08/22 13:40:20 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handle_sig1(int signal)
 	if (signal == SIGUSR1)
 		i |= (0x01 << bit);
 	bit++;
-	if (bit == 0)
+	if (bit == 8)
 	{
 		ft_printf("%c", i);
 		bit = 0;

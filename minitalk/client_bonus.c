@@ -6,7 +6,7 @@
 /*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:09:31 by drizzo            #+#    #+#             */
-/*   Updated: 2024/08/07 15:17:43 by drizzo           ###   ########.fr       */
+/*   Updated: 2024/08/22 14:59:50 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int	main(int argc, char **argv)
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
-		while (argv[2][i])
+		signal(SIGUSR1, confirm_message);
+		signal(SIGUSR2, confirm_message);
+		while (argv[2][i] != '\0')
 		{
-			signal(SIGUSR1, confirm_message);
-			signal(SIGUSR2, confirm_message);
 			send_char(pid, argv[2][i]);
 			i++;
 		}
