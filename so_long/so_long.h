@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prossi <prossi@student.42adel.org.au>      +#+  +:+       +#+        */
+/*   By: drizzo <drizzo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 20:15:54 by prossi            #+#    #+#             */
-/*   Updated: 2022/12/12 20:41:55 by prossi           ###   ########.fr       */
+/*   Updated: 2024/08/29 14:09:41 by drizzo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
-# include "get_next_line.h"
-# include "../minilibx/mlx.h"
+# include "libft/libft.h"
+# include "minilibx-linux/mlx.h"
 
 typedef struct t_start
 {
