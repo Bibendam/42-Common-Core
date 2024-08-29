@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../so_long.h"
 
 static int	width_of_map(char *string)
 {

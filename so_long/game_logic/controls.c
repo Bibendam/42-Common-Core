@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../so_long.h"
 
 static int	right_move(t_complete *game, int i, int j)
 {
@@ -6,7 +6,7 @@ static int	right_move(t_complete *game, int i, int j)
 	{
 		if (game->collectables != 0)
 			return (0);
-		printf("\nYou Have Won, Congrats!\n");
+		ft_printf("\nYou Have Won, Congrats!\n");
 		exit_point(game);
 	}
 	if (game->map[j][i] == '0')
@@ -55,8 +55,8 @@ static int	keyboard_w_s(t_complete *game, int movement)
 			return (0);
 		game->map[j - 1][i] = '0';
 	}
-	printf("Steps Taken: %i\n", game->counter);
-	printf("Collectables Left: %i\n", game->collectables);
+	ft_printf("Steps Taken: %i\n", game->counter);
+	ft_printf("Collectables Left: %i\n", game->collectables);
 	return (1);
 }
 
@@ -88,8 +88,8 @@ static int	keyboard_a_d(t_complete *game, int movement)
 			return (0);
 		game->map[j][i - 1] = '0';
 	}
-	printf("Steps Taken: %i\n", game->counter);
-	printf("Collectables Remaining: %i\n", game->collectables);
+	ft_printf("Steps Taken: %i\n", game->counter);
+	ft_printf("Collectables Remaining: %i\n", game->collectables);
 	return (1);
 }
 

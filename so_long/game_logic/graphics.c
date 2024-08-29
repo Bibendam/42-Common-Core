@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../so_long.h"
 
 void	place_player(t_complete *game, int height, int width)
 {
@@ -21,15 +21,15 @@ void	place_images_in_game(t_complete *game)
 	int	j;
 
 	game->floor = mlx_xpm_file_to_image(game->mlxpointer,
-			"game_images/floor.xpm", &i, &j);
+			"img/floor.xpm", &i, &j);
 	game->barrier = mlx_xpm_file_to_image(game->mlxpointer,
-			"game_images/tree.xpm", &i, &j);
+			"img/tree.xpm", &i, &j);
 	game->player = mlx_xpm_file_to_image(game->mlxpointer,
-			"game_images/player.xpm", &i, &j);
+			"img/right_1.xpm", &i, &j);
 	game->exit = mlx_xpm_file_to_image(game->mlxpointer,
-			"game_images/portal.xpm", &i, &j);
+			"img/portal.xpm", &i, &j);
 	game->collectable = mlx_xpm_file_to_image(game->mlxpointer,
-			"game_images/rupee.xpm", &i, &j);
+			"img/rupee.xpm", &i, &j);
 }
 
 void	adding_in_graphics(t_complete *game)
